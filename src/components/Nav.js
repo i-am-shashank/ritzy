@@ -39,11 +39,13 @@ function Navbar() {
 							variant="outline"
 						/>
 						<MenuList>
-							<MenuItem icon={<AiOutlineShoppingCart color="lblack" />} >
-								<Box as="button" fontSize="xs" color="lblack">
-									CART
-								</Box>
-							</MenuItem>
+							<Link to="/cart">
+								<MenuItem icon={<AiOutlineShoppingCart color="lblack" />} >
+									<Box as="button" fontSize="xs" color="lblack">
+										CART
+									</Box>
+								</MenuItem>
+							</Link>
 							<Link to="/auth">
 								<MenuItem icon={<RiAccountCircleLine color="lblack" />} >
 									<Box as="button" fontSize="xs" color="lblack">

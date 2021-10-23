@@ -8,11 +8,20 @@ import EmptyCart from "../components/EmptyCart";
 export default function Cart(props) {
   const [items, setItems] = useState([])
   const reload = () => window.location.reload();
+  const [price, setPrice] = useState("loading...")
+
   useEffect(() => {
-    setItems(
-      JSON.parse(localStorage.getItem("@cart_items"))
-    )
-  }, [])
+    const fetched_items = JSON.parse(localStorage.getItem("@cart_items"));
+    setItems(fetched_items)
+
+    setTimeout(() => {
+      let total = 0;
+      fetched_items.map((obj) => {
+        total = total + parseInt(obj.price);
+      })
+      setPrice(total)
+    }, 2000)
+  }, []);
 
   return <>
     {items === null || items.length === 0 ? <EmptyCart /> :
@@ -58,7 +67,7 @@ export default function Cart(props) {
             <Link to="/checkout">
               <Center mt="2rem">
                 <HStack spacing={60}>
-                  <Box fontSize="1rem" >TOTAL:-${ }</Box>
+                  <Box fontSize="1rem" >TOTAL:- ${price}</Box>
                   <Spacer />
                   <Box w="6.5rem" h="1.5rem" as="button" color="white" bg="red" style={{ borderRadius: "0.2rem" }}>continue</Box>
                 </HStack>
@@ -69,7 +78,7 @@ export default function Cart(props) {
             <Link to="/checkout">
               <Center mt="2rem" display={{ sm: "block", md: "none", lg: "none", xl: "none" }}>
                 <HStack spacing={14}>
-                  <Box fontSize="1rem" >TOTAL:-${}</Box>
+                  <Box fontSize="1rem" >TOTAL:- ${price}</Box>
                   <Spacer />
                   <Box w="6.5rem" h="1.5rem" as="button" color="white" bg="red" style={{ borderRadius: "0.2rem" }}>continue</Box>
                 </HStack>
