@@ -6,12 +6,12 @@ import theme from "./helpers/theme";
 import Layout from "./layout/Layout";
 
 const App = () => {
-	return (
-		<Router>
-			<ChakraProvider theme={theme}>
-				<Layout>{routes}</Layout>
-			</ChakraProvider>
-		</Router>
-	);
+  return (
+    <Router>
+      <ChakraProvider theme={theme}>
+        <Layout>{routes}</Layout>
+      </ChakraProvider>
+    </Router>
+  );
 };
 export default App;
