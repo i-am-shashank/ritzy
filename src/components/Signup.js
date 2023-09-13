@@ -39,8 +39,8 @@ export default function Signup(props) {
       .then(() => {
         successpopup();
       })
-      .then((res) => console.log("res: ", res))
-      .catch(() => {
+      .catch((err) => {
+        console.log({err});
         errorpopup();
       });
   };

@@ -1,31 +1,28 @@
+import cookie from "js-cookie";
+
 class User {
-  set = (data) => {
+    set = (data) => {
     const { token, userInfo } = data;
-    userInfo.token = token;
-    const encoded = Buffer(JSON.stringify(userInfo)).toString("hex");
-    window.localStorage.setItem("USER", encoded);
+    cookie.set("token", token);
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
   };
 
   get = () => {
-    const user = window.localStorage.getItem("USER");
+    const user = localStorage.getItem("userInfo");
     if (user != null) {
-      const decoded = Buffer.from(user, "hex");
-      return JSON.parse(decoded);
+      return JSON.parse(user);
     } else {
       return {};
     }
   };
 
   update = (data) => {
-    const userInfo = this.get();
-    data.token = userInfo.token;
-    const encoded = Buffer(JSON.stringify(data)).toString("hex");
-    window.localStorage.setItem("USER", encoded);
+    localStorage.setItem("userInfo", JSON.stringify(data));
   };
 
+
   token = () => {
-    const userInfo = this.get();
-    return userInfo && userInfo.token;
+    return cookie.get("token");
   };
 
   loggedin() {
