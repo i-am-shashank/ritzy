@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { MdAddShoppingCart } from "react-icons/md";
+import { Box, HStack, Image, Spacer, Text } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
-import { Text, Box, HStack, Image, Spacer } from "@chakra-ui/react";
 import Loading from "../components/Loading";
+import { MdAddShoppingCart } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 
 export default function Result() {
@@ -42,7 +43,7 @@ export default function Result() {
                 m="4rem 1rem"
                 boxShadow="rgba(0, 0, 0, 0.15) 0px 3px 3px 0px"
               >
-                <Image src={post.img} borderRadius="4px 4px 0 0" alt="image" />
+                <Image src={post.img} borderRadius="4px 4px 0 0" alt="image" mx="auto"/>
                 <Box
                   bg="offWhite"
                   w="18.5rem"

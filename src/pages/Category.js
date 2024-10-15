@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { MdAddShoppingCart } from "react-icons/md";
-import { RiArrowUpDownFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import {
-  Center,
-  Text,
   Box,
+  Button,
+  Center,
   HStack,
   Image,
   Spacer,
-  Button,
+  Text,
 } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+
+import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
-import { useLocation } from "react-router-dom";
-import { getData } from "../services/essentials";
+import { MdAddShoppingCart } from "react-icons/md";
+import { RiArrowUpDownFill } from "react-icons/ri";
 import SearchHandler from "../components/search";
+import { getData } from "../services/essentials";
+import { useLocation } from "react-router-dom";
 
 export default function Category() {
   const icon = { color: "#5E5E5E", fontSize: "1.4rem" };
@@ -112,6 +113,7 @@ export default function Category() {
                     src={post.img}
                     borderRadius="4px 4px 0 0"
                     alt="image"
+                    mx="auto"
                   />
                   <Box
                     bg="offWhite"
