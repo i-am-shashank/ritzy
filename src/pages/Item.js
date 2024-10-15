@@ -140,7 +140,7 @@ function Items() {
             <Box mr={{ sm: "3rem", md: "4rem" }} mt="1.5rem">
               <Image
                 src={img}
-                h={{ sm: "15rem", md: "25rem" }}
+                h={{ sm: "10rem", md: "20rem" }}
                 w={{ sm: "8rem", md: "14rem" }}
               />
             </Box>
