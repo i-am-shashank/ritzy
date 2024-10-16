@@ -45,7 +45,7 @@ export default function Result() {
               m="4rem 1rem"
               boxShadow="rgba(0, 0, 0, 0.15) 0px 3px 3px 0px"
             >
-              <Image src={post.img} borderRadius="4px 4px 0 0" alt="image" />
+              <Image src={post.img} borderRadius="4px 4px 0 0" alt="image" mx="auto" />
               <Box
                 bg="offWhite"
                 w="18.5rem"
