@@ -8,7 +8,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import { BsArrowLeft } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -69,22 +68,17 @@ function Items() {
         display={{ lg: "block", xl: "block", sm: "none", md: "none" }}
       >
         <HStack>
-          <Box>
-            <Image
-              src={img}
-              w={{ sm: "50%", md: "77rem", xl: "80rem" }}
-              objectFit="contain"
-            />
-          </Box>
+          <Image
+            src={img}
+            w={{ lg: "20rem", xl: "16rem" }}
+            objectFit="contain"
+          />
           <Spacer />
           <Box>
-            <Box
-              h={{ lg: "5rem", xl: "7rem" }}
-              w={{ lg: "25rem", xl: "50rem" }}
-            >
+            <Box w={{ lg: "25rem", xl: "50rem" }}>
               <Text
                 fonts="sec"
-                fontSize={{ xl: "2rem", lg: "1.1rem" }}
+                fontSize={{ lg: "0.8rem", xl: "1.1rem" }}
                 style={{
                   textTransform: "uppercase",
                   letterSpacing: "0.1rem",
@@ -104,7 +98,7 @@ function Items() {
             <Text fontSize={{ xl: "2rem", lg: "1.2rem" }} mt="4rem">
               ${price}
             </Text>
-            <Box h="10rem" mt="1.5rem">
+            <Box mt="1.5rem">
               <Text color="lblack" fontSize={{ xl: "1rem", lg: "0.8rem" }}>
                 {des}
               </Text>
@@ -134,11 +128,11 @@ function Items() {
         display={{ lg: "none", xl: "none", md: "block", sm: "block" }}
       >
         <VStack>
-          <Box h={{ sm: "6rem", md: "5rem" }} w={{ sm: "18rem", md: "40rem" }}>
+          <Box w={{ sm: "18rem", md: "40rem" }}>
             <Text
               fonts="sec"
               mr={{ sm: "2.2rem" }}
-              fontSize={{ md: "1.5rem", sm: "0.8rem" }}
+              fontSize={{ sm: "0.6rem", md: "0.8rem" }}
               style={{
                 textTransform: "uppercase",
                 letterSpacing: "0.1rem",
@@ -159,15 +153,14 @@ function Items() {
             <Box mr={{ sm: "3rem", md: "4rem" }} mt="1.5rem">
               <Image
                 src={img}
-                h={{ sm: "14rem", md: "25rem" }}
-                w={{ sm: "45rem", md: "30rem" }}
+                h={{ sm: "10rem", md: "20rem" }}
+                w={{ sm: "8rem", md: "14rem" }}
               />
             </Box>
             <Text fontSize={{ md: "2rem", sm: "1.2rem" }} mt="1.5rem">
               ${price}
             </Text>
             <Box
-              h={{ md: "10rem", sm: "5rem" }}
               mt="1.5rem"
               w={{ md: "32rem", sm: "15.8rem" }}
               mr={{ md: "7rem", sm: "2.6rem" }}
