@@ -1,40 +1,41 @@
-import React, { useState, useEffect } from "react";
-import { MdAddShoppingCart } from "react-icons/md";
-import { RiArrowUpDownFill } from "react-icons/ri";
-import { Link } from "react-router-dom";
 import {
-  Center,
-  Text,
   Box,
+  Button,
+  Center,
   HStack,
   Image,
   Spacer,
-  Button,
+  Text,
 } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+
+import { BsSortUp } from "react-icons/bs";
+import { BsSortUpAlt } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import Loading from "../components/Loading";
-import { useLocation } from "react-router-dom";
-import { getData } from "../services/essentials";
+import { MdAddShoppingCart } from "react-icons/md";
 import SearchHandler from "../components/search";
+import { getData } from "../services/essentials";
+import { useLocation } from "react-router-dom";
 
 export default function Category() {
   const icon = { color: "#5E5E5E", fontSize: "1.4rem" };
   const [Data, setData] = useState([]);
   const [loading, setloading] = useState(false);
   const location = useLocation();
-  const [isFirst, setisFirst] = useState(true);
+  const [isAscending, setIsAscending] = useState(true);
 
   const onSortHandler = () => {
     const temp = [...Data];
-    const asc = temp.sort((a, b) => {
-      return a.price - b.price;
-    });
-
-    if (isFirst === true) {
-      setisFirst(false);
+    if (isAscending) {
+      const asc = temp.sort((a, b) => a.price - b.price);
       setData(asc);
     } else {
-      setData(Data.reverse());
+      const desc = temp.sort((a, b) => b.price - a.price);
+      setData(desc);
     }
+
+    setIsAscending(!isAscending);
   };
 
   useEffect(() => {
@@ -75,11 +76,15 @@ export default function Category() {
                 borderRadius="4px"
               >
                 sort
-                {
-                  <RiArrowUpDownFill
-                    style={{ marginTop: "0.2rem", marginLeft: "0.1rem" }}
+                {isAscending ? (
+                  <BsSortUpAlt
+                    style={{ marginTop: "0.2rem", marginLeft: "0.3rem" }}
                   />
-                }
+                ) : (
+                  <BsSortUp
+                    style={{ marginTop: "0.2rem", marginLeft: "0.3rem" }}
+                  />
+                )}
               </Button>
             </Box>
           </HStack>
