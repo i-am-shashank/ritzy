@@ -22,23 +22,21 @@ export default function Search() {
     }
   };
   return (
-    <>
-      <InputGroup size="md">
-        <Input
-          w={{ xl: "14rem", lg: "13rem", sm: "10rem", md: "11rem" }}
-          bg="offWhite"
-          placeholder="search collection..."
-          onChange={(event) => setValue(event.target.value.toLowerCase())}
-          value={value}
-        />
-        <InputRightAddon
-          bg="black"
-          transition="all 0.2s"
-          _active={{ transform: value && "scale(0.96)" }}
-          children={<GoSearch color="red" />}
-          onClick={searchCollection}
-        />
-      </InputGroup>
-    </>
+    <InputGroup size="md">
+      <Input
+        w={{ xl: "14rem", lg: "13rem", sm: "10rem", md: "11rem" }}
+        bg="offWhite"
+        placeholder="search collection..."
+        onChange={(event) => setValue(event.target.value.toLowerCase())}
+        value={value}
+      />
+      <InputRightAddon
+        bg="black"
+        transition="all 0.2s"
+        _active={{ transform: value.trim() !== "" && "scale(0.96)" }}
+        children={<GoSearch color="red" />}
+        onClick={searchCollection}
+      />
+    </InputGroup>
   );
 }

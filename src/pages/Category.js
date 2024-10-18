@@ -1,10 +1,10 @@
 import { Box, Button, Center, HStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 
-import ItemList from "../components/ItemList";
-import Loading from "../components/Loading";
 import { BsSortUp } from "react-icons/bs";
 import { BsSortUpAlt } from "react-icons/bs";
+import ItemList from "../components/ItemList";
+import Loading from "../components/Loading";
 import SearchHandler from "../components/search";
 import { getData } from "../services/essentials";
 import { useLocation } from "react-router-dom";
@@ -13,10 +13,10 @@ export default function Category() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
- const [isAscending, setIsAscending] = useState(true);
+  const [isAscending, setIsAscending] = useState(true);
 
   const onSortHandler = () => {
-    const temp = [...Data];
+    const temp = [...data];
     if (isAscending) {
       const asc = temp.sort((a, b) => a.price - b.price);
       setData(asc);
@@ -26,8 +26,7 @@ export default function Category() {
     }
 
     setIsAscending(!isAscending);
-  };
-
+  };  
 
   useEffect(() => {
     const currentLocation = location.pathname;
@@ -70,15 +69,15 @@ export default function Category() {
               borderRadius="4px"
             >
               sort
-               {isAscending ? (
-                  <BsSortUpAlt
-                    style={{ marginTop: "0.2rem", marginLeft: "0.3rem" }}
-                  />
-                ) : (
-                  <BsSortUp
-                    style={{ marginTop: "0.2rem", marginLeft: "0.3rem" }}
-                  />
-                )}
+              {isAscending ? (
+                <BsSortUpAlt
+                  style={{ marginTop: "0.2rem", marginLeft: "0.3rem" }}
+                />
+              ) : (
+                <BsSortUp
+                  style={{ marginTop: "0.2rem", marginLeft: "0.3rem" }}
+                />
+              )}
             </Button>
           </Box>
         </HStack>

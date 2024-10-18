@@ -8,6 +8,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
+import { BsArrowLeft } from "react-icons/bs";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
@@ -49,19 +50,6 @@ function Items() {
 
   return (
     <>
-     <Flex
-        color="red"
-        mt="1rem"
-        pl={{ lg: "20rem", sm: "6rem", md: "12rem" }}
-        fontSize={{ sm: "1rem", md: "1.2rem" }}
-        style={{ cursor: "pointer" }}
-        onClick={() => {
-          window.history.back();
-        }}
-      >
-        {<BsArrowLeft color="#E5383B" fontSize="1.6rem" mr="1rem" />}
-        Back
-      </Flex>
       <Flex
         p="4rem"
         mr="3rem"
@@ -75,6 +63,18 @@ function Items() {
           />
           <Spacer />
           <Box>
+            <Flex
+              color="red"
+              mb="2rem"
+              fontSize={{ sm: "1rem", md: "1.2rem" }}
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                window.history.back();
+              }}
+            >
+              {<BsArrowLeft color="#E5383B" fontSize="1.6rem" mr="1rem" />}
+              Back
+            </Flex>
             <Box w={{ lg: "25rem", xl: "50rem" }}>
               <Text
                 fonts="sec"
