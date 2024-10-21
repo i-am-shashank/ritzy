@@ -9,21 +9,14 @@ import {
 } from "@chakra-ui/react";
 
 import { BsArrowLeft } from "react-icons/bs";
-import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import withReactContent from "sweetalert2-react-content";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-function alert() {
-  const MySwal = withReactContent(Swal);
-  MySwal.fire({
-    icon: "success",
-    title: "Your item is added to cart",
-  });
-}
+
 function Items() {
   const query = useQuery();
   const img = query.get("img");
@@ -44,7 +37,7 @@ function Items() {
       updatedCart.push({ img: `${img}`, price: `${price}` });
     }
     setText("added to cart");
-    alert();
+    toast.success("Your item is added to cart");
     localStorage.setItem("@cart_items", JSON.stringify(updatedCart));
   };
 

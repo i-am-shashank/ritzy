@@ -2,10 +2,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { Input, InputGroup, InputRightAddon } from "@chakra-ui/input";
 import React, { useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
 
 import { GoSearch } from "react-icons/go";
 import { searchAll } from "../services/essentials";
+import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 
 export default function Search() {
@@ -28,24 +28,21 @@ export default function Search() {
   };
 
   return (
-    <>
-      <ToastContainer  style={{ width: "fit-content" }} position="top-center" />
-      <InputGroup size="md">
-        <Input
-          w={{ xl: "14rem", lg: "13rem", sm: "10rem", md: "11rem" }}
-          bg="offWhite"
-          placeholder="search collection..."
-          onChange={(event) => setValue(event.target.value.toLowerCase())}
-          value={value}
-        />
-        <InputRightAddon
-          bg="black"
-          transition="all 0.2s"
-          _active={{ transform: value.trim() !== "" && "scale(0.96)" }}
-          children={<GoSearch color="red" />}
-          onClick={searchCollection}
-        />
-      </InputGroup>
-    </>
+    <InputGroup size="md">
+      <Input
+        w={{ xl: "14rem", lg: "13rem", sm: "10rem", md: "11rem" }}
+        bg="offWhite"
+        placeholder="search collection..."
+        onChange={(event) => setValue(event.target.value.toLowerCase())}
+        value={value}
+      />
+      <InputRightAddon
+        bg="black"
+        transition="all 0.2s"
+        _active={{ transform: value.trim() !== "" && "scale(0.96)" }}
+        children={<GoSearch color="red" />}
+        onClick={searchCollection}
+      />
+    </InputGroup>
   );
 }
