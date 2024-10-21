@@ -1,42 +1,71 @@
 import {
   Box,
-  HStack,
-  Spacer,
-  Image,
   Center,
-  VStack,
-  Flex,
   Divider,
+  Flex,
+  HStack,
+  Image,
+  Spacer,
+  VStack,
 } from "@chakra-ui/react";
-import { GrFormSubtract } from "react-icons/gr";
-import { GrFormAdd } from "react-icons/gr";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function CartItems({ img, price, key, item, setItems, reload }) {
-  const [value, setValue] = useState(1);
+import { GrFormAdd } from "react-icons/gr";
+import { GrFormSubtract } from "react-icons/gr";
+
+export default function CartItems({
+  img,
+  price,
+  key,
+  item,
+  setItems,
+  reload,
+  qty,
+}) {
+  const [value, setValue] = useState(qty);
   const [total, setTotal] = useState(price);
-  const sub = () => {
-    setValue(value - 1);
+
+  const removeItem = () => {
+    const cart_items = JSON.parse(localStorage.getItem("@cart_items")) || [];
+    const itemIndex = cart_items.findIndex((cartItem) => cartItem.img === img);
+    if (itemIndex !== -1) {
+      const currentItem = cart_items[itemIndex];
+      if (currentItem.qty > 1) {
+        currentItem.qty -= 1;
+        setValue(currentItem.qty);
+      } else {
+        cart_items.splice(itemIndex, 1);
+      }
+      localStorage.setItem("@cart_items", JSON.stringify(cart_items));
+      setItems(cart_items);
+      reload();
+    }
   };
-  const add = () => {
+
+  const addItem = () => {
     setValue(value + 1);
+    const cart_items = JSON.parse(localStorage.getItem("@cart_items")) || [];
+    cart_items.push({ img: item.img, price: item.price });
+    localStorage.setItem("@cart_items", JSON.stringify(cart_items));
+    reload();
   };
+
   useEffect(() => {
     if (value > 1) {
       setTotal(price * value);
-    }
-    if (value === 1) {
+    } else if (value === 1) {
       setTotal(price);
-    }
-    if (value === 0) {
+    } else if (value === 0) {
       const cart_items = JSON.parse(localStorage.getItem("@cart_items"));
-      const updatedCart = cart_items;
-      updatedCart.pop(item);
+      const updatedCart = cart_items.filter(
+        (cartItem) => cartItem.img !== item.img
+      );
       localStorage.setItem("@cart_items", JSON.stringify(updatedCart));
-      // setItems(updatedCart);
+      setItems(updatedCart);
       reload();
     }
-  });
+  }, [value, price, item, setItems]);
+
   return (
     <>
       <Center display={{ sm: "none", md: "block", lg: "block", xl: "block" }}>
@@ -45,7 +74,7 @@ export default function CartItems({ img, price, key, item, setItems, reload }) {
             <VStack>
               <Box w="42.5rem">
                 <HStack key={key}>
-                  <Image src={img} w="6.6rem" h="7rem" />
+                  <Image src={img} w="8rem" h="10rem" />
                   <Spacer />
                   <Box>
                     <Flex>
@@ -54,7 +83,7 @@ export default function CartItems({ img, price, key, item, setItems, reload }) {
                         w="1rem"
                         h="1rem"
                         mt="0.6rem"
-                        onClick={sub}
+                        onClick={removeItem}
                       >
                         {<GrFormSubtract />}
                       </Box>
@@ -75,7 +104,7 @@ export default function CartItems({ img, price, key, item, setItems, reload }) {
                         w="1rem"
                         h="1rem"
                         mt="0.6rem"
-                        onClick={add}
+                        onClick={addItem}
                       >
                         {<GrFormAdd />}
                       </Box>
@@ -95,10 +124,10 @@ export default function CartItems({ img, price, key, item, setItems, reload }) {
       <Box display={{ sm: "block", md: "none", lg: "none", xl: "none" }}>
         <Box justifyContent="center">
           <VStack key={key}>
-            <Image src={img} w="8.8rem" h="8rem" />
+            <Image src={img} w="8rem" h="10rem" />
             <Box>
               <Flex>
-                <Box bg="gray" w="0.8rem" h="0.8rem" mt="0.6rem" onClick={sub}>
+                <Box bg="gray" w="0.8rem" h="0.8rem" mt="0.6rem" onClick={removeItem}>
                   {<GrFormSubtract />}
                 </Box>
                 <Box
@@ -113,7 +142,7 @@ export default function CartItems({ img, price, key, item, setItems, reload }) {
                 >
                   {value}
                 </Box>
-                <Box bg="gray" w="0.8rem" h="0.8rem" mt="0.6rem" onClick={add}>
+                <Box bg="gray" w="0.8rem" h="0.8rem" mt="0.6rem" onClick={addItem}>
                   {<GrFormAdd />}
                 </Box>
               </Flex>
