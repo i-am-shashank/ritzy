@@ -1,25 +1,10 @@
+import { Box, Center, HStack, Input, Text } from "@chakra-ui/react";
 import React, { useRef } from "react";
-import { Box, Input, Text, Center, HStack } from "@chakra-ui/react";
-import { signUp } from "../services/essentials";
-import CircleIcon from "./filledIcon";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 
-function errorpopup() {
-  const MySwal = withReactContent(Swal);
-  MySwal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: "Something went wrong!",
-  });
-}
-function successpopup() {
-  const MySwal = withReactContent(Swal);
-  MySwal.fire({
-    icon: "success",
-    title: "Account Ragistered successfully",
-  });
-}
+import CircleIcon from "./filledIcon";
+import { signUp } from "../services/essentials";
+import { toast } from "react-toastify";
+
 export default function Signup(props) {
   const name = useRef("");
   const email = useRef("");
@@ -37,11 +22,10 @@ export default function Signup(props) {
     };
     signUp(payload)
       .then(() => {
-        successpopup();
+        toast.success("Account Registered successfully");
       })
-      .catch((err) => {
-        console.log({err});
-        errorpopup();
+      .catch(() => {
+        toast.error("Something went wrong!");
       });
   };
   return (

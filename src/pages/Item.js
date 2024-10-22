@@ -8,21 +8,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 
-import Swal from "sweetalert2";
+import { BsArrowLeft } from "react-icons/bs";
+import { toast } from "react-toastify";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import withReactContent from "sweetalert2-react-content";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
-function alert() {
-  const MySwal = withReactContent(Swal);
-  MySwal.fire({
-    icon: "success",
-    title: "Your item is added to cart",
-  });
-}
+
 function Items() {
   const query = useQuery();
   const img = query.get("img");
@@ -43,7 +37,7 @@ function Items() {
       updatedCart.push({ img: `${img}`, price: `${price}` });
     }
     setText("added to cart");
-    alert();
+    toast.success("Your item is added to cart");
     localStorage.setItem("@cart_items", JSON.stringify(updatedCart));
   };
 
@@ -62,6 +56,18 @@ function Items() {
           />
           <Spacer />
           <Box>
+            <Flex
+              color="red"
+              mb="2rem"
+              fontSize={{ sm: "1rem", md: "1.2rem" }}
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                window.history.back();
+              }}
+            >
+              {<BsArrowLeft color="#E5383B" fontSize="1.6rem" mr="1rem" />}
+              Back
+            </Flex>
             <Box w={{ lg: "25rem", xl: "50rem" }}>
               <Text
                 fonts="sec"
