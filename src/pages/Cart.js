@@ -1,28 +1,41 @@
-import { Box, HStack, Spacer, Flex, Center, Divider } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Box, Center, Divider, Flex, HStack, Spacer } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+
 import { BsArrowLeft } from "react-icons/bs";
 import CartItems from "../components/CartItems";
-import { useEffect, useState } from "react";
 import EmptyCart from "../components/EmptyCart";
+import { Link } from "react-router-dom";
 
-export default function Cart(props) {
+export default function Cart() {
   const [items, setItems] = useState([]);
   const reload = () => window.location.reload();
   const [price, setPrice] = useState("loading...");
 
   useEffect(() => {
-    const fetched_items = JSON.parse(localStorage.getItem("@cart_items"));
+    const fetched_items = JSON.parse(localStorage.getItem("@cart_items")) || [];
     setItems(fetched_items);
+    let total = 0;
+    fetched_items.forEach((obj) => {
+      total += parseInt(obj.price, 10);
+    });
+    setPrice(total);
+  }, [setItems]); 
 
-    setTimeout(() => {
-      let total = 0;
-      fetched_items.map((obj) => {
-        total = total + parseInt(obj.price);
-      });
-      setPrice(total);
-    }, 2000);
-  }, []);
+  const groupCartItems = (items) => {
+    const groupedItems = items.reduce((acc, item) => {
+      const existingCartItem = acc.find((i) => i.img === item.img);
+      if (existingCartItem) {
+        existingCartItem.qty += 1;
+      } else {
+        acc.push({ ...item, qty: 1 });
+      }
+      return acc;
+    }, []);
+    return groupedItems;
+  };
 
+  const cartItems = groupCartItems(items);
+ 
   return (
     <>
       {items === null || items.length === 0 ? (
@@ -92,13 +105,14 @@ export default function Cart(props) {
               </HStack>
             </Center>
           </Box>
-          {items.map((item, i) => (
+          {cartItems.map((item, i) => (
             <Center key={i}>
               <Box w="46rem" mt="2rem">
                 <CartItems
                   img={item.img}
                   price={item.price}
                   key={item.id}
+                  qty={item.qty}
                   item={item}
                   setItems={setItems}
                   reload={reload}
@@ -106,7 +120,10 @@ export default function Cart(props) {
               </Box>
             </Center>
           ))}
-          <Box display={{ sm: "none", md: "block", lg: "block", xl: "bloxk" }}>
+          <Box
+            display={{ sm: "none", md: "block", lg: "block", xl: "block" }}
+            mb="2rem"
+          >
             <Link to="/checkout">
               <Center mt="2rem">
                 <HStack spacing={60}>
@@ -126,7 +143,10 @@ export default function Cart(props) {
               </Center>
             </Link>
           </Box>
-          <Box display={{ sm: "block", md: "none", lg: "none", xl: "none" }}>
+          <Box
+            display={{ sm: "block", md: "none", lg: "none", xl: "none" }}
+            mb="2rem"
+          >
             <Link to="/checkout">
               <Center
                 mt="2rem"
